@@ -2,9 +2,6 @@
 
 Welcome to the bonus module on AI Orchestration and Agents! This module introduces AI-powered workflow orchestration using Kestra, showing you how AI can accelerate workflow development and enable autonomous task automation.
 
-> [!NOTE]  
-> This is a bonus module. While not required for course completion, it introduces powerful concepts that can significantly improve your productivity when building LLM-powered applications.
-
 ---
 
 # Module Structure
@@ -329,13 +326,13 @@ tasks:
     # LLM provider configuration
     provider:
       type: io.kestra.plugin.ai.provider.GoogleGemini
-      modelName: gemini-2.5-flash
-      apiKey: "{{ kv('GEMINI_API_KEY') }}"
+      modelName: gemini-3-flash-preview
+      apiKey: "{{ secret('GEMINI_API_KEY') }}"
     
     # Tools the agent can use
     tools:
       - type: io.kestra.plugin.ai.tool.TavilyWebSearch
-        apiKey: "{{ kv('TAVILY_API_KEY') }}"
+        apiKey: "{{ secret('TAVILY_API_KEY') }}"
     
     # Memory for context across executions
     memory:
@@ -412,8 +409,8 @@ You can enable detailed logging via the `configuration` property:
 ```yaml
 provider:
   type: io.kestra.plugin.ai.provider.GoogleGemini
-  modelName: gemini-2.5-flash
-  apiKey: "{{ kv('GEMINI_API_KEY') }}"
+  modelName: gemini-3-flash-preview
+  apiKey: "{{ secret('GEMINI_API_KEY') }}"
   configuration:
     logRequests: true
     logResponses: true
@@ -606,7 +603,7 @@ AI features use LLM APIs, which have costs based on token usage:
    apiKey: "sk-abc123def456"
    
    # ✅ CORRECT
-   apiKey: "{{ kv('GEMINI_API_KEY') }}"
+   apiKey: "{{ secret('GEMINI_API_KEY') }}"
    ```
 2. **Use KV Store in open-source Kestra** - Store keys in the namespace of your flows
 3. **Rotate keys regularly** - change API keys e.g. every 90 days
