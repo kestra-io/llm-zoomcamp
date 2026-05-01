@@ -1,6 +1,6 @@
 # AI Orchestration and Agents
 
-Welcome to the bonus module on AI Orchestration and Agents! This module introduces AI-powered workflow orchestration using Kestra, showing you how AI can accelerate workflow development and enable autonomous task automation.
+Welcome to the module on AI Orchestration and Agents! This module introduces AI-powered workflow orchestration using Kestra, showing you how AI can accelerate workflow development and enable autonomous task automation.
 
 ---
 
@@ -18,7 +18,7 @@ By the end of this module, you will:
 
 ## Prerequisites
 
-- Kestra running locally (see setup instructions in Section 7)
+- Kestra running locally (see setup instructions [here](#step-1-start-kestra)).
 - Google Cloud account with access to Gemini API
 - Basic understanding of YAML and workflow concepts
 
@@ -105,7 +105,7 @@ Before using AI Copilot, you need to configure Gemini API access in your Kestra 
 4. Copy the generated key (keep it secure!)
 
 > [!WARNING]  
-> Never commit API keys to Git. Always use environment variables or Kestra's KV Store.
+> Never commit API keys to Git. Always use environment variables.
 
 #### Step 2: Configure Kestra
 
@@ -117,7 +117,6 @@ export GEMINI_API_KEY="your-api-key-here"
 docker compose up -d
 ```
 
-Alternatively, you can store the API key in Kestra's KV Store for better security.
 
 #### Step 3: Access AI Copilot
 
@@ -505,29 +504,23 @@ docker compose down
 
 ### Step 3: Configure API Keys in Kestra
 
-Store your API keys securely using Kestra's KV Store via the UI:
+Kestra reads secrets from environment variables prefixed with `SECRET_` where the value is base64-encoded. Export your keys before starting Kestra:
 
-1. **Navigate to KV Store**:
-   - In Kestra UI, click on **KV Store** in the left sidebar
-   - Click **New Key-Value** button in the top right
+```bash
+export SECRET_GEMINI_API_KEY=$(echo -n "your-gemini-api-key-here" | base64)
+export SECRET_TAVILY_API_KEY=$(echo -n "your-tavily-api-key-here" | base64)  # optional, for web search examples
+```
 
-2. **Add your Gemini API key**:
-   - **Namespace**: `zoomcamp`
-   - **Key**: `GEMINI_API_KEY`
-   - **Type**: Select `STRING` from dropdown
-   - **Value**: `your-gemini-api-key-here`
-   - Click **Save**
+Then start (or restart) Kestra:
 
-3. **Add your Tavily API key** (for agent examples):
-   - Click **New Key-Value** again
-   - **Namespace**: `zoomcamp`
-   - **Key**: `TAVILY_API_KEY`
-   - **Type**: Select `STRING` from dropdown
-   - **Value**: `your-tavily-api-key-here`
-   - Click **Save**
+```bash
+docker compose up -d
+```
+
+In flows, reference secrets with `{{ secret('GEMINI_API_KEY') }}` — omit the `SECRET_` prefix when calling `secret()`.
 
 > [!WARNING]  
-> Never commit API keys to Git! Always use Kestra's KV Store (OSS) or Secrets (Enterprise) to store sensitive credentials.
+> Never commit API keys to Git!
 
 ### Step 4: Import Example Flows
 
@@ -605,7 +598,7 @@ AI features use LLM APIs, which have costs based on token usage:
    # ✅ CORRECT
    apiKey: "{{ secret('GEMINI_API_KEY') }}"
    ```
-2. **Use KV Store in open-source Kestra** - Store keys in the namespace of your flows
+2. **Use secrets** - Export base64-encoded keys as `SECRET_`-prefixed environment variables
 3. **Rotate keys regularly** - change API keys e.g. every 90 days
 4. **Monitor usage** - Review token consumption regularly
 
@@ -675,7 +668,7 @@ Kestra Community:
 
 Complete the hands-on assignment to test your understanding of AI workflows and agents.
 
-See: [Module 8 Homework](../cohorts/2025/08-ai-orchestration/homework.md)
+See: [Module 8 Homework](../cohorts/2026/08-ai-orchestration/homework.md)
 
 ---
 

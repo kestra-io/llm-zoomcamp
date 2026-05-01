@@ -12,7 +12,7 @@ Before starting this homework, ensure you have:
 2. Kestra running locally
 3. Google Gemini API key (get it from https://aistudio.google.com/app/apikey)
 4. (Optional) Tavily API key for web search examples (get it from https://tavily.com/)
-5. Imported/added all flows from the `07-ai-workflows/flows/` directory
+5. Imported/added all flows from the `08-ai-orchestration/flows/` directory
 
 ---
 
@@ -28,30 +28,23 @@ This homework explores AI workflows and agents in Kestra. You'll experiment with
 
 ## Setup Instructions
 
-1. **Store your API keys in Kestra's KV Store via the UI:**
+1. **Export your API keys as secrets before starting Kestra:**
 
-⚠️ **Important**: Never commit API keys to Git! Always use the KV Store UI to add sensitive credentials.
+⚠️ **Important**: Never commit API keys to Git! Export them as environment variables — Kestra picks them up automatically.
 
-**Steps to add your API keys:**
+```bash
+export SECRET_GEMINI_API_KEY=$(echo -n "your-gemini-api-key-here" | base64)
+export SECRET_TAVILY_API_KEY=$(echo -n "your-tavily-api-key-here" | base64)  # optional, for web search examples
+```
 
-a. In the Kestra UI, click on **"KV Store"** in the left sidebar
+Then start Kestra:
 
-b. Click the **"New Key-Value"** button
+```bash
+cd 08-ai-orchestration
+docker compose up -d
+```
 
-c. Add your **Gemini API key**:
-   - **Namespace**: `zoomcamp`
-   - **Key**: `GEMINI_API_KEY`
-   - **Type**: Select `STRING` from dropdown
-   - **Value**: Your Gemini API key from https://aistudio.google.com/app/apikey
-   - Click **Save**
-
-d. (Optional) Add your **Tavily API key** for web search examples:
-   - Click **"New Key-Value"** again
-   - **Namespace**: `zoomcamp`
-   - **Key**: `TAVILY_API_KEY`
-   - **Type**: Select `STRING` from dropdown
-   - **Value**: Your Tavily API key from https://tavily.com/
-   - Click **Save**
+In flows, these are referenced as `{{ secret('GEMINI_API_KEY') }}` — omit the `SECRET_` prefix when calling `secret()`.
 
 2. **Import the homework flows:**
 
@@ -59,11 +52,11 @@ d. (Optional) Add your **Tavily API key** for web search examples:
 cd 08-ai-orchestration
 
 # Import flows: assuming username admin@kestra.io and password Admin1234 (adjust to match your username and password)
-curl -X POST -u 'admin@kestra.io:Admin1234' http://localhost:8080/api/v1/flows/import -F fileUpload=@flows/1_chat_without_rag.yaml
-curl -X POST -u 'admin@kestra.io:Admin1234' http://localhost:8080/api/v1/flows/import -F fileUpload=@flows/2_chat_with_rag.yaml
-curl -X POST -u 'admin@kestra.io:Admin1234' http://localhost:8080/api/v1/flows/import -F fileUpload=@flows/3_simple_agent.yaml
-curl -X POST -u 'admin@kestra.io:Admin1234' http://localhost:8080/api/v1/flows/import -F fileUpload=@flows/4_web_research_agent.yaml
-curl -X POST -u 'admin@kestra.io:Admin1234' http://localhost:8080/api/v1/flows/import -F fileUpload=@flows/5_multi_agent_research.yaml
+curl -X POST -u 'admin@kestra.io:Admin1234!' http://localhost:8080/api/v1/flows/import -F fileUpload=@flows/1_chat_without_rag.yaml
+curl -X POST -u 'admin@kestra.io:Admin1234!' http://localhost:8080/api/v1/flows/import -F fileUpload=@flows/2_chat_with_rag.yaml
+curl -X POST -u 'admin@kestra.io:Admin1234!' http://localhost:8080/api/v1/flows/import -F fileUpload=@flows/3_simple_agent.yaml
+curl -X POST -u 'admin@kestra.io:Admin1234!' http://localhost:8080/api/v1/flows/import -F fileUpload=@flows/4_web_research_agent.yaml
+curl -X POST -u 'admin@kestra.io:Admin1234!' http://localhost:8080/api/v1/flows/import -F fileUpload=@flows/5_multi_agent_research.yaml
 ```
 
 ---
@@ -168,7 +161,7 @@ Will be added after the due date.
 
 ## Tips for Success
 
-1. **API Keys**: Make sure your Gemini API key is correctly stored in the KV Store
+1. **API Keys**: Make sure your `SECRET_GEMINI_API_KEY` environment variable is exported before running `docker compose up -d`
 2. **Free Tier Limits**: If you hit rate limits, wait a few minutes and try again
 3. **Debugging**: Enable `logRequests` and `logResponses` in your provider configuration to see what's being sent to the LLM
 4. **Cost Monitoring**: Check token usage in execution logs to understand costs
@@ -180,7 +173,7 @@ Will be added after the due date.
 
 - [Kestra AI Documentation](https://kestra.io/docs/ai-tools)
 - [Gemini API Documentation](https://ai.google.dev/docs)
-- [Module 8 README](../../../07-ai-orchestration/README.md)
+- [Module 8 README](../../../08-ai-orchestration/README.md)
 - [Kestra Slack Community](https://kestra.io/slack)
 
 Good luck! 🚀
