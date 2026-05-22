@@ -1,6 +1,6 @@
 # AI Orchestration and Agents
 
-Welcome to the module on AI Orchestration and Agents! This module introduces AI-powered workflow orchestration using Kestra, showing you how AI can accelerate workflow development and enable autonomous task automation.
+Welcome to the module on AI and Agentic Orchestration! This module introduces AI-powered workflow orchestration using Kestra, showing you how AI can accelerate workflow development and enable autonomous task automation.
 
 ---
 

@@ -151,9 +151,9 @@ There are two ways to follow the course. Here's how they compare:
 
 | Module | Topic | Key Tools | What You'll Be Able to Do After |
 |--|-|--|-|
-| [1 – Intro to LLMs & RAG](01-intro/) | Foundations | OpenAI API, Elasticsearch | Build a basic RAG pipeline with text search |
+| [1 – Intro to LLMs, RAG & Vector Search](01-intro/) | Foundations | OpenAI API, Elasticsearch, Qdrant, dlt | Build a basic RAG pipeline and index documents using semantic embeddings |
 | [2 – Agents](02-agents/) | Agentic RAG | OpenAI Function Calling | Add autonomous tool use and function calling to RAG |
-| [3 – Vector Search](03-vector-search/) | Retrieval | Qdrant, dlt | Index and retrieve documents using semantic embeddings |
+| [3 – AI Orchestration](03-ai-orchestration/) | Orchestration | Kestra | Automate and orchestrate AI workflows with an open-source orchestration platform |
 | [Workshop – Data Ingestion](cohorts/2025/workshops/dlt.md) | Pipelines | dlt | Ingest data from external sources into your RAG system |
 | [4 – Evaluation](04-evaluation/) | Quality | LLM-as-a-Judge | Measure retrieval and answer quality with offline and online eval |
 | [5 – Monitoring](05-monitoring/) | Observability | Grafana | Monitor user feedback and system health with live dashboards |
