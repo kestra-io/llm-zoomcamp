@@ -325,7 +325,7 @@ tasks:
     # LLM provider configuration
     provider:
       type: io.kestra.plugin.ai.provider.GoogleGemini
-      modelName: gemini-3-flash-preview
+      modelName: gemini-3.5-flash
       apiKey: "{{ secret('GEMINI_API_KEY') }}"
     
     # Tools the agent can use
@@ -408,7 +408,7 @@ You can enable detailed logging via the `configuration` property:
 ```yaml
 provider:
   type: io.kestra.plugin.ai.provider.GoogleGemini
-  modelName: gemini-3-flash-preview
+  modelName: gemini-3.5-flash
   apiKey: "{{ secret('GEMINI_API_KEY') }}"
   configuration:
     logRequests: true
